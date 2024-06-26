@@ -8,6 +8,8 @@ import {
   getCurrentUsers,
   updateUserSubscription,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 } from "../../controllers/usersController.js";
 import { authenticateToken } from "../../middlewares/authenticateToken.js";
 import { upload } from "../../middlewares/upload.js";
@@ -24,7 +26,7 @@ router.post("/signup", ctrlWrapper(signupUser));
 
 /* POST: // http://localhost:3000/api/users/login
 {
-  "email": "budiepeds@gmail.com",
+  "email": "donsusers@gmail.com",
   "password": "examplepassword"
 }
 */
@@ -50,5 +52,15 @@ router.patch("/", authenticateToken, ctrlWrapper(updateUserSubscription));
 
 // prettier-ignore
 router.patch("/avatars", authenticateToken, upload.single("avatar"), ctrlWrapper(updateAvatar));
+
+/* GET: // http://localhost:3000/api/users/verify/:verificationToken */
+router.get("/users/verify/:verificationToken", ctrlWrapper(verifyEmail));
+
+/* POST: // http://localhost:3000/api/users/verify 
+{
+  "email": "example@example.com",
+}
+*/
+router.post("/verify", authenticateToken, ctrlWrapper(resendVerifyEmail));
 
 export { router };

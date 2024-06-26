@@ -7,7 +7,7 @@ import { authenticateToken } from "../../middlewares/authenticateToken.js";
 const router = express.Router();
 
 /* GET: // http://localhost:3000/api/contacts */
-router.get("/", ctrlWrapper(getAllContacts));
+router.get("/", authenticateToken, ctrlWrapper(getAllContacts));
 
 /* GET: // http://localhost:3000/api/contacts/:contactId */
 router.get("/:contactId", authenticateToken, ctrlWrapper(getContactById));
